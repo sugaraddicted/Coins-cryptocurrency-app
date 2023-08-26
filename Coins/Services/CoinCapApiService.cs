@@ -17,18 +17,17 @@ namespace Coins.Services
             _httpClient = new HttpClient();
         }
 
-        public async Task<List<Currency>> GetTopCurrenciesAsync()
+        public async Task<List<Currency>> GetCurrenciesAsync()
         {
-            var url = $"{BaseUrl}assets"; // Corrected URL to fetch assets
+            var url = $"{BaseUrl}assets";
             var response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
 
-                // The API response structure has a nested 'data' property containing an array of currencies
-                var apiResponse = JsonConvert.DeserializeObject<ApiResponse>(content);
-                var currencies = apiResponse.Data;
+                var apiResponse = JsonConvert.DeserializeObject<CurrenciesApiResponse>(content);
+                var currencies = apiResponse.Currencies;
 
                 return currencies;
             }
@@ -37,11 +36,12 @@ namespace Coins.Services
                 return null;
             }
         }
-    }
 
-    // Define the ApiResponse class to match the structure of the API response
-    public class ApiResponse
-    {
-        public List<Currency> Data { get; set; }
     }
+}
+
+public class CurrenciesApiResponse
+{
+    [JsonProperty("data")]
+    public List<Currency>? Currencies { get; set; }
 }

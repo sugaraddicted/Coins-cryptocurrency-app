@@ -10,7 +10,7 @@ namespace Coins.Tests
         {
             var service = new CoinCapApiService();
 
-            var result = await service.GetTopCurrenciesAsync();
+            var result = await service.GetCurrenciesAsync();
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result[0].Id, Is.EqualTo("bitcoin"));
