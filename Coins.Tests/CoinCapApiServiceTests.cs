@@ -15,5 +15,18 @@ namespace Coins.Tests
             Assert.That(result, Is.Not.Null);
             Assert.That(result[0].Id, Is.EqualTo("bitcoin"));
         }
+
+        [Test]
+        public async Task GetCurrencyByIdAsync_WhenCalled_ReturnsCurrency()
+        {
+            var service = new CoinCapApiService();
+            var id = "bitcoin";
+
+            var result = await service.GetCurrencyByIdAsync(id);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Symbol, Is.EqualTo("BTC"));
+        }
+
     }
 }

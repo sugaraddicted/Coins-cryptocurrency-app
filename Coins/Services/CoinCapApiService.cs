@@ -37,11 +37,40 @@ namespace Coins.Services
             }
         }
 
+        public async Task<Currency> GetCurrencyByIdAsync(string id)
+        {
+            var url = $"{BaseUrl}assets/{id}";
+            var response = await _httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                var apiResponse = JsonConvert.DeserializeObject<CurrencyApiResponse>(content);
+                var currency = apiResponse.Currency;
+
+                return currency;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+    }
+
+    public class CurrenciesApiResponse
+    {
+        [JsonProperty("data")]
+        public List<Currency>? Currencies { get; set; }
+    }
+
+    public class CurrencyApiResponse
+    {
+        [JsonProperty("data")]
+        public Currency Currency { get; set; }
     }
 }
 
-public class CurrenciesApiResponse
-{
-    [JsonProperty("data")]
-    public List<Currency>? Currencies { get; set; }
-}
+
