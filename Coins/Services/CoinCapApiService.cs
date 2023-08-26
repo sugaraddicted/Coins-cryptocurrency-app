@@ -57,6 +57,26 @@ namespace Coins.Services
             }
         }
 
+        public async Task<List<CurrencyMarketInfo>> GetMarketsInfoByCurrencyIdAsync(string id)
+        {
+            var url = $"{BaseUrl}assets/{id}/markets";
+            var response = await _httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                var apiResponse = JsonConvert.DeserializeObject<MarketApiResponse>(content);
+                var marketsInfo = apiResponse.MarketsInfo;
+
+                return marketsInfo;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
 
     }
 
@@ -70,6 +90,12 @@ namespace Coins.Services
     {
         [JsonProperty("data")]
         public Currency Currency { get; set; }
+    }
+
+    public class MarketApiResponse
+    {
+        [JsonProperty("data")]
+        public List<CurrencyMarketInfo>? MarketsInfo { get; set; }
     }
 }
 
