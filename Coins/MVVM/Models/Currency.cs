@@ -8,7 +8,7 @@ namespace Coins.MVVM.Models
         public string Id { get; set; }
 
         [JsonProperty("rank")]
-        public string Rank { get; set; }
+        public int Rank { get; set; }
 
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
@@ -23,13 +23,13 @@ namespace Coins.MVVM.Models
         public string MaxSupply { get; set; }
 
         [JsonProperty("marketCapUsd")]
-        public string MarketCapUsd { get; set; }
+        public decimal MarketCapUsd { get; set; }
 
         [JsonProperty("volumeUsd24Hr")]
-        public string VolumeUsd24Hr { get; set; }
+        public decimal VolumeUsd24Hr { get; set; }
 
         [JsonProperty("priceUsd")]
-        public string PriceUsd { get; set; }
+        public decimal PriceUsd { get; set; }
 
         [JsonProperty("changePercent24Hr")]
         public string ChangePercent24Hr { get; set; }
