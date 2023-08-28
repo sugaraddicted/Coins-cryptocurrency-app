@@ -1,6 +1,4 @@
-﻿using Coins.MVVM.ViewModels;
-using Coins.MVVM.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Coins
+namespace Coins.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainView : Page
     {
-        public MainWindow()
+        public MainView()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
-
-            ContentFrame.Content = new MainView();
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿<Page x:Class="Coins.MVVM.Views.MainView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      Background="White"
+      xmlns:local="clr-namespace:Coins.MVVM.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainView">
+    <Page.DataContext>
+        <local:MainViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0" Height="25" Margin="287,39,83,6"/>
+        <Button  Grid.Row="0" Width="50" Height="25" Content="Search" Margin="721,38,29,7" RenderTransformOrigin="0.509,0.549"/>
+
+
+        <TextBlock Margin="21,21,21,0" Grid.Row="1" Text="Top 10 by rank" FontSize="26" Padding="10, 0, 0, 10" FontWeight="Bold" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+
+        <ListView Margin="15,80,15,5" Grid.Row="1" ItemsSource="{Binding Currencies}" Grid.ColumnSpan="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"/>
+                    <GridViewColumn Header="Symbol" DisplayMemberBinding="{Binding Symbol}" Width="150"/>
+                    <GridViewColumn Header="Price (USD)" DisplayMemberBinding="{Binding PriceUsd}" Width="160"/>
+                    <GridViewColumn Header="Market Cap (USD)" DisplayMemberBinding="{Binding MarketCapUsd}" Width="200"/>
+                    <GridViewColumn Width="100">
+                        <GridViewColumn.CellTemplate>
+                               <DataTemplate>
+                                <Button Content="Details" Width ="80" Command="{Binding DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>
