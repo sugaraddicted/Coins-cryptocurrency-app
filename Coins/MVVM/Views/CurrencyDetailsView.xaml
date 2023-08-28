@@ -23,36 +23,36 @@
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="0" Grid.Row="0" Margin="30" Content="Back" FontSize="20" Command="{Binding BackCommand}"/>
-        <TextBlock Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectedCurrency.Name}" FontSize="40" VerticalAlignment="Center" Margin="171,0,27,0" RenderTransformOrigin="0.378,0.534"/>
+        <Button Grid.Column="3" Grid.Row="0" Margin="30,39,30,21" Content="Back" FontSize="20" Command="{Binding BackCommand}" BorderThickness="0"/>
+        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding SelectedCurrency.Name}" FontSize="40" VerticalAlignment="Top" Margin="30,25,168,0" RenderTransformOrigin="0.378,0.534"/>
 
-        <Grid Grid.Row="1" Grid.Column="0" Margin="30, 0, 0, 0">
+        <Grid Grid.Row="1" Grid.Column="0" Margin="30,0,25,0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Symbol" VerticalAlignment="Bottom" Grid.Row="0"/>
-            <TextBlock Text="Supply" VerticalAlignment="Bottom" Grid.Row="1"/>
-            <TextBlock Text="MaxSupply" VerticalAlignment="Bottom" Grid.Row="2"/>
-            <TextBlock Text="ChangePercent24Hr" VerticalAlignment="Bottom" Grid.Row="3"/>
+            <TextBlock Text="Symbol" VerticalAlignment="Bottom" Grid.Row="0"  Background="LightGray" Padding="10, 0, 0, 0"/>
+            <TextBlock Text="Supply" VerticalAlignment="Bottom" Grid.Row="1"  Background="LightGray" Padding="10, 0, 0, 0"/>
+            <TextBlock Text="MaxSupply" VerticalAlignment="Bottom" Grid.Row="2"  Background="LightGray" Padding="10, 0, 0, 0"/>
+            <TextBlock Text="ChangePercent24Hr" VerticalAlignment="Bottom" Grid.Row="3"  Background="LightGray" Padding="10, 0, 0, 0"/>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="2" Margin="10, 0, 0, 0">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="185,0,73,0" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="MarketCapUsd" VerticalAlignment="Bottom" Grid.Row="0"/>
-            <TextBlock Text="VolumeUsd24Hr" VerticalAlignment="Bottom" Grid.Row="1"/>
-            <TextBlock Text="PriceUsd" VerticalAlignment="Bottom" Grid.Row="2"/>
-            <TextBlock Text="Vwap24Hr" VerticalAlignment="Bottom" Grid.Row="3"/>
+            <TextBlock Text="MarketCapUsd" VerticalAlignment="Bottom" Grid.Row="0" Background="LightGray" Padding="10, 0, 0, 0"/>
+            <TextBlock Text="VolumeUsd24Hr" VerticalAlignment="Bottom" Grid.Row="1" Background="LightGray" Padding="10, 0, 0, 0"/>
+            <TextBlock Text="PriceUsd" VerticalAlignment="Bottom" Grid.Row="2" Background="LightGray" Padding="10, 0, 0, 0"/>
+            <TextBlock Text="Vwap24Hr" VerticalAlignment="Bottom" Grid.Row="3" Background="LightGray" Padding="10, 0, 0, 0"/>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="1" Margin="10, 0, 0, 0">
+        <Grid Grid.Row="1" Margin="204,0,29,0" Grid.ColumnSpan="2" >
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -65,7 +65,7 @@
             <TextBlock Text="{Binding SelectedCurrency.ChangePercent24Hr}" VerticalAlignment="Bottom" Grid.Row="3"/>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="3" Margin="10, 0, 0, 0">
+        <Grid Grid.Row="1" Grid.Column="2" Margin="163,0,52,0" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -78,15 +78,15 @@
             <TextBlock Text="{Binding SelectedCurrency.Vwap24Hr}" VerticalAlignment="Bottom" Grid.Row="3"/>
         </Grid>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="30, 0, 0, 0" Text="AVAILABLE ON MARKETS:" VerticalAlignment="Bottom" FontSize="20"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="30, 0, 0, 0" Text="Available on markets:" VerticalAlignment="Bottom" FontSize="24"/>
 
-        <ListView Grid.Row="3" Grid.ColumnSpan="4" Margin="30, 10, 0, 0" ItemsSource="{Binding MarketsInfo}">
+        <ListView Grid.Row="3" Grid.ColumnSpan="4" Margin="30,10,30,9" ItemsSource="{Binding MarketsInfo}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Market name" DisplayMemberBinding="{Binding ExchangeId}" Width="100"/>
-                    <GridViewColumn Header="Price (USD)" DisplayMemberBinding="{Binding PriceUsd}" Width="100"/>
-                    <GridViewColumn Header="Volume (USD) 24Hr" DisplayMemberBinding="{Binding VolumeUsd24Hr}" Width="150"/>
-                    <GridViewColumn Header="Volume Percent" DisplayMemberBinding="{Binding VolumePercent}" Width="120"/>
+                    <GridViewColumn Header="Market name" DisplayMemberBinding="{Binding ExchangeId}" Width="170"/>
+                    <GridViewColumn Header="Price (USD)" DisplayMemberBinding="{Binding PriceUsd}" Width="170"/>
+                    <GridViewColumn Header="Volume (USD) 24Hr" DisplayMemberBinding="{Binding VolumeUsd24Hr}" Width="200"/>
+                    <GridViewColumn Header="Volume Percent" DisplayMemberBinding="{Binding VolumePercent}" Width="170"/>
                 </GridView>
             </ListView.View>
         </ListView>
