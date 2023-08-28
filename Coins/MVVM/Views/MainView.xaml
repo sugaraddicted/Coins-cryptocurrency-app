@@ -18,8 +18,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Height="25" Margin="287,39,83,6"/>
-        <Button  Grid.Row="0" Width="50" Height="25" Content="Search" Margin="721,38,29,7" RenderTransformOrigin="0.509,0.549"/>
+        <TextBox Grid.Row="0" Height="25" Margin="287,39,83,6" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button  Grid.Row="0" Width="50" Height="25" Content="Search" Margin="721,38,29,7" RenderTransformOrigin="0.509,0.549" Command="{Binding SearchCommand}"/>
 
 
         <TextBlock Margin="21,21,21,0" Grid.Row="1" Text="Top 10 by rank" FontSize="26" Padding="10, 0, 0, 10" FontWeight="Bold" VerticalAlignment="Top" Grid.ColumnSpan="2" />

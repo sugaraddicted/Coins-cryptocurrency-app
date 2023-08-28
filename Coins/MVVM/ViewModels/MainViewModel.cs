@@ -16,13 +16,17 @@ namespace Coins.MVVM.ViewModels
     {
         private readonly CoinCapApiService _apiService;
         private List<Currency> _currencies;
+        private string _searchText;
 
         public MainViewModel()
         {
             _apiService = new CoinCapApiService();
-            LoadCurrencies();
+            LoadCurrenciesAsync();
             DetailsCommand = new RelayCommand<Currency>(OpenDetailsPage);
+            SearchCommand = new RelayCommand(SearchAsync);
         }
+
+        public ICommand SearchCommand { get; private set; }
 
         public List<Currency> Currencies
         {
@@ -33,12 +37,21 @@ namespace Coins.MVVM.ViewModels
                 OnPropertyChanged();
             }
         }
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand DetailsCommand { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private async void LoadCurrencies()
+        private async void LoadCurrenciesAsync()
         {
             var fullList = await _apiService.GetCurrenciesAsync();
             Currencies = fullList.Where(i => i.Rank <= 10).ToList();
@@ -55,6 +68,20 @@ namespace Coins.MVVM.ViewModels
             if (frame != null)
             {
                 frame.Navigate(new CurrencyDetailsView(selectedCurrency, frame));
+            }
+        }
+        private async void SearchAsync()
+        {
+            var fullCurrencyList = await _apiService.GetCurrenciesAsync();
+            Currency foundCurrency = fullCurrencyList.FirstOrDefault(c => c.Id.ToLower() == SearchText.ToLower() || c.Name.ToLower() == SearchText.ToLower());
+
+            if (foundCurrency != null)
+            {
+                OpenDetailsPage(foundCurrency);
+            }
+            else
+            {
+                MessageBox.Show("Currency not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
