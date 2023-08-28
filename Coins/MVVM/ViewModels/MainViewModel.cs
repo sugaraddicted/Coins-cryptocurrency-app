@@ -73,7 +73,12 @@ namespace Coins.MVVM.ViewModels
         private async void SearchAsync()
         {
             var fullCurrencyList = await _apiService.GetCurrenciesAsync();
-            Currency foundCurrency = fullCurrencyList.FirstOrDefault(c => c.Id.ToLower() == SearchText.ToLower() || c.Name.ToLower() == SearchText.ToLower());
+            Currency foundCurrency = null;
+
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                foundCurrency = fullCurrencyList.FirstOrDefault(c => c.Id.ToLower() == SearchText.ToLower() || c.Name.ToLower() == SearchText.ToLower());
+            }   
 
             if (foundCurrency != null)
             {
