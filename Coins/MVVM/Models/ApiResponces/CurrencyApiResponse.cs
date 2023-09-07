@@ -7,5 +7,4 @@ namespace Coins.MVVM.Models.ApiResponceDtos
         [JsonProperty("data")]
         public Currency Currency { get; set; }
     }
-
 }
