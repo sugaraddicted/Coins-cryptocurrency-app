@@ -1,4 +1,5 @@
 ﻿using Coins.MVVM.Models;
+using Coins.MVVM.Views;
 using Coins.Services;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.Generic;
@@ -6,9 +7,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Coins.MVVM.Views;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Coins.MVVM.ViewModels
 {
@@ -18,6 +18,8 @@ namespace Coins.MVVM.ViewModels
         private List<Currency> _currencies;
         private string _searchText;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public MainViewModel()
         {
             _apiService = new CoinCapApiService();
@@ -26,6 +28,7 @@ namespace Coins.MVVM.ViewModels
             SearchCommand = new RelayCommand(SearchAsync);
         }
 
+        public ICommand DetailsCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
 
         public List<Currency> Currencies
@@ -33,43 +36,46 @@ namespace Coins.MVVM.ViewModels
             get => _currencies;
             private set
             {
-                _currencies = value;
-                OnPropertyChanged();
+                if (_currencies != value)
+                {
+                    _currencies = value;
+                    OnPropertyChanged();
+                }
             }
         }
+
         public string SearchText
         {
             get => _searchText;
             set
             {
-                _searchText = value;
-                OnPropertyChanged();
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged();
+                }
             }
         }
-
-        public ICommand DetailsCommand { get; private set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private async void LoadCurrenciesAsync()
         {
             var fullList = await _apiService.GetCurrenciesAsync();
             Currencies = fullList.Where(i => i.Rank <= 10).ToList();
         }
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void OpenDetailsPage(Currency selectedCurrency)
         {
-            Frame frame = Application.Current.MainWindow.FindName("ContentFrame") as Frame;
-
-            if (frame != null)
+            if (Application.Current.MainWindow.FindName("ContentFrame") is Frame frame)
             {
                 frame.Navigate(new CurrencyDetailsView(selectedCurrency, frame));
             }
         }
+
         private async void SearchAsync()
         {
             var fullCurrencyList = await _apiService.GetCurrenciesAsync();
@@ -77,10 +83,9 @@ namespace Coins.MVVM.ViewModels
 
             if (!string.IsNullOrEmpty(SearchText))
             {
-                foundCurrency = fullCurrencyList.FirstOrDefault(c => c.Id.ToLower() == SearchText.ToLower()
-                                                                                                         || 
+                foundCurrency = fullCurrencyList.FirstOrDefault(c => c.Id.ToLower() == SearchText.ToLower() ||
                                                                      c.Name.ToLower() == SearchText.ToLower());
-            }   
+            }
 
             if (foundCurrency != null)
             {
