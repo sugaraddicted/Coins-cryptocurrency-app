@@ -2,11 +2,12 @@
 using Coins.MVVM.Views;
 using Coins.Services;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Coins.MVVM.ViewModels
 {
@@ -15,8 +16,8 @@ namespace Coins.MVVM.ViewModels
         private readonly CoinCapApiService _apiService;
         private Currency _selectedCurrency;
         private List<CurrencyMarketInfo> _marketsInfo;
-        public RelayCommand BackCommand { get; set; }
 
+        public ICommand BackCommand { get; private set; }
 
         public CurrencyDetailsViewModel(Currency selectedCurrency)
         {
@@ -53,7 +54,12 @@ namespace Coins.MVVM.ViewModels
 
         private void GoBack()
         {
-            Messenger.Default.Send(new NavigateToMainViewMessage());
+            Frame frame = Application.Current.MainWindow.FindName("ContentFrame") as Frame;
+
+            if (frame != null)
+            {
+                frame.Navigate(new MainView());
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -62,8 +68,5 @@ namespace Coins.MVVM.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
     }
-    public class NavigateToMainViewMessage { }
 }
