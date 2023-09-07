@@ -77,7 +77,9 @@ namespace Coins.MVVM.ViewModels
 
             if (!string.IsNullOrEmpty(SearchText))
             {
-                foundCurrency = fullCurrencyList.FirstOrDefault(c => c.Id.ToLower() == SearchText.ToLower() || c.Name.ToLower() == SearchText.ToLower());
+                foundCurrency = fullCurrencyList.FirstOrDefault(c => c.Id.ToLower() == SearchText.ToLower()
+                                                                                                         || 
+                                                                     c.Name.ToLower() == SearchText.ToLower());
             }   
 
             if (foundCurrency != null)
@@ -90,16 +92,4 @@ namespace Coins.MVVM.ViewModels
             }
         }
     }
-
-    public class NavigateToCurrencyDetailsMessage
-    {
-        public Currency SelectedCurrency { get; }
-
-        public NavigateToCurrencyDetailsMessage(Currency selectedCurrency)
-        {
-            SelectedCurrency = selectedCurrency;
-        }
-    }
-
-
 }
