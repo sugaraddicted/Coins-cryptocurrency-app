@@ -17,7 +17,9 @@ namespace Coins.MVVM.ViewModels
         private Currency _selectedCurrency;
         private List<CurrencyMarketInfo> _marketsInfo;
 
-        public ICommand BackCommand { get; private set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ICommand BackCommand { get; }
 
         public CurrencyDetailsViewModel(Currency selectedCurrency)
         {
@@ -32,8 +34,11 @@ namespace Coins.MVVM.ViewModels
             get => _selectedCurrency;
             set
             {
-                _selectedCurrency = value;
-                OnPropertyChanged();
+                if (_selectedCurrency != value)
+                {
+                    _selectedCurrency = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -42,8 +47,11 @@ namespace Coins.MVVM.ViewModels
             get => _marketsInfo;
             set
             {
-                _marketsInfo = value;
-                OnPropertyChanged();
+                if (_marketsInfo != value)
+                {
+                    _marketsInfo = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -54,15 +62,11 @@ namespace Coins.MVVM.ViewModels
 
         private void GoBack()
         {
-            Frame frame = Application.Current.MainWindow.FindName("ContentFrame") as Frame;
-
-            if (frame != null)
+            if (Application.Current.MainWindow.FindName("ContentFrame") is Frame frame)
             {
                 frame.Navigate(new MainView());
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
