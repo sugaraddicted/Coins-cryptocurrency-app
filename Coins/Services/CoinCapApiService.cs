@@ -1,4 +1,5 @@
 ﻿using Coins.MVVM.Models;
+using Coins.MVVM.Models.ApiResponceDtos;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -76,26 +77,6 @@ namespace Coins.Services
                 return null;
             }
         }
-
-
-    }
-
-    public class CurrenciesApiResponse
-    {
-        [JsonProperty("data")]
-        public List<Currency>? Currencies { get; set; }
-    }
-
-    public class CurrencyApiResponse
-    {
-        [JsonProperty("data")]
-        public Currency Currency { get; set; }
-    }
-
-    public class MarketApiResponse
-    {
-        [JsonProperty("data")]
-        public List<CurrencyMarketInfo>? MarketsInfo { get; set; }
     }
 }
 
